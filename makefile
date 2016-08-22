@@ -3,6 +3,9 @@ run: aura
 	cd ../aura && make run
 
 .PHONY:
+all: aura
+
+.PHONY:
 aura: make-base feta mish
 	if [ ! -d ../aura ]; then git clone https://github.com/neonorb/aura ../aura; fi
 	cd ../aura && make img
