@@ -23,3 +23,9 @@ mish: make-base feta
 .PHONY:
 make-base:
 	if [ ! -d ../make-base ]; then git clone https://github.com/neonorb/make-base ../make-base; fi
+
+.PHONY:
+clean:
+	cd ../aura && make clean
+	cd ../feta && make clean
+	cd ../mish && make clean
