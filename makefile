@@ -36,10 +36,10 @@ make-base:
 
 .PHONY:
 commit:
-	cd ../aura && git diff && git add -A && git commit
-	cd ../make-base && git diff && git add -A && git commit
-	cd ../mish && git diff && git add -A && git commit
-	cd ../feta && git diff && git add -A && git commit
+	cd ../aura && git diff && git add -A && git commit ; echo ""
+	cd ../make-base && git diff && git add -A && git commit ; echo ""
+	cd ../mish && git diff && git add -A && git commit ; echo ""
+	cd ../feta && git diff && git add -A && git commit ; echo ""
 
 .PHONY:
 push:
@@ -57,4 +57,3 @@ pull:
 	cd ../make-base && git pull
 	cd ../mish && git pull
 	cd ../feta && git pull
->>>>>>> dc2ea57d3855db8eea1ea82b01b6eab8002e6deb
