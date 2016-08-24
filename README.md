@@ -7,4 +7,4 @@ Project Asiago is the idea that the current computer system is inheritenly broke
  - [ ] Mish parser
  - [ ] non-volatile storage
  - [ ] networking
- - [ ]
+ - [ ] text formatting specification
