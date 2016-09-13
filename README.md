@@ -8,3 +8,13 @@ Project Asiago is the idea that the current computer system is inheritenly broke
  - [ ] non-volatile storage
  - [ ] networking
  - [ ] text formatting specification
+
+# Getting
+If you'd like to run the operating system in an emulator, you must first install `qemu-system-x86_64`. Then clone this repository and run `make run`.
+
+```
+# apt install qemu-system-x86_64
+$ git clone https://github.com/neonorb/project-asiago
+$ cd project-asiago
+$ make run
+```
