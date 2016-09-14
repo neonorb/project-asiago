@@ -1,9 +1,9 @@
 .PHONY:
-run: aura
-	cd ../aura && make run
+all: aura
 
 .PHONY:
-all: aura
+run: aura
+	cd ../aura && make run
 
 .PHONY:
 clean:
@@ -36,10 +36,7 @@ make-base:
 
 .PHONY:
 commit:
-	cd ../aura && git diff && git add -A && git commit ; echo ""
-	cd ../make-base && git diff && git add -A && git commit ; echo ""
-	cd ../mish && git diff && git add -A && git commit ; echo ""
-	cd ../feta && git diff && git add -A && git commit ; echo ""
+	./commitall.sh
 
 .PHONY:
 push:
