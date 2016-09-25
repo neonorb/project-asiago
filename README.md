@@ -20,3 +20,6 @@ $ git clone https://github.com/neonorb/project-asiago
 $ cd project-asiago
 $ make run
 ```
+
+# Contributing
+If you'd like to contribute, you will need a GPG key to sign your commits with. There is a great tutorial over here: http://blog.dpg.io/articles/gpg-linux. Once you have the GPG key, you will want to fork the desired repository, make your changes and **make sure you sign the commit**. Then you can submit a push request.
