@@ -7,7 +7,7 @@ run-aura: aura
 
 .PHONY:
 run-linux: mish-linux
-	cd ../mish-linux && build/mish-linux
+	cd ../mish-linux && build/mish
 
 .PHONY:
 clean:
