@@ -45,6 +45,11 @@ mish: make-base feta
 make-base:
 	if [ ! -d ../make-base ]; then git clone git@github.com:neonorb/make-base ../make-base; fi
 
+# ---- install ----
+
+install-linux: mish-linux
+	cd ../mish-linux && make install
+
 # --- Git ----
 
 COMMIT_COMMAND=bash ../project-asiago/commit.sh ; echo ""
