@@ -10,15 +10,28 @@ Project Asiago is the idea that the current computer system is inheritenly broke
  - [ ] text formatting specification
 
 # Getting
-If you'd like to run the operating system in an emulator, you must first install `qemu-system-x86_64`. Then clone this repository and run `make run`. This will clone all the dependencies into the parent folder and build them, it's reccomended you have a dedicated folder for this reason.
+## Aura
 
 ```
 # apt install qemu-system-x86_64
 $ mkdir project-asiago
 $ cd project-asiago
-$ git clone https://github.com/neonorb/project-asiago
+$ git clone git@github.com:neonorb/project-asiago
 $ cd project-asiago
+$ make aura
 $ make run
+```
+
+## On Linux
+If you'd like to run Mish code on Linux, you can do this as well.
+
+```
+$ mkdir project-asiago
+$ cd project-asiago
+$ git clone git@github.com:neonorb/project-asiago
+$ cd project asiago
+$ make mish-linux
+$ ../mish-linux/build/mish
 ```
 
 # Contributing
