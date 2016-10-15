@@ -11,6 +11,7 @@ Project Asiago is the idea that the current computer system is inheritenly broke
 
 # Getting
 ## Aura
+No cross compiler needed!
 
 ```
 # apt install qemu-system-x86_64
