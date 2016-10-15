@@ -12,7 +12,7 @@ Project Asiago is the idea that the current computer system is inheritenly broke
 # Getting
 This repository contains a makefile that allows you to easily download and build all the required dependencies.
 
-You'll first need an intial build of everything:
+You'll first need to setup your directories. The rest of this document assumes your current directory is `~/project-asiago/project-asiago/`
 ```
 $ mkdir project-asiago
 $ cd project-asiago
