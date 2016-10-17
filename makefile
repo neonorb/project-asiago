@@ -2,20 +2,22 @@
 all: aura mish-linux
 
 .PHONY:
-run-aura: aura
-	cd ../aura && make run
-
-.PHONY:
-run-linux: mish-linux
-	cd ../mish-linux && build/mish
-
-.PHONY:
 clean:
 	cd ../aura       && make clean
 	cd ../mish-linux && make clean
 	
 	cd ../mish       && make clean
 	cd ../feta       && make clean
+
+# ---- running ----
+
+.PHONY:
+run-aura: aura
+	cd ../aura && make run
+
+.PHONY:
+run-linux: mish-linux
+	cd ../mish-linux && build/mish
 
 # ---- building ----
 
