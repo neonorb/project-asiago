@@ -10,28 +10,52 @@ Project Asiago is the idea that the current computer system is inheritenly broke
  - [ ] text formatting specification
 
 # Getting
-## Aura
+This repository contains a makefile that allows you to easily download and build all the required dependencies.
 
+You'll first need to setup your directories. The rest of this document assumes your current directory is `~/project-asiago/project-asiago/`
 ```
-# apt install qemu-system-x86_64
 $ mkdir project-asiago
 $ cd project-asiago
 $ git clone git@github.com:neonorb/project-asiago
 $ cd project-asiago
+```
+
+## Aura
+If you'd like to use the operating system, you may do so here. No cross compiler required!
+
+```
 $ make aura
-$ make run
+```
+
+### QEMU
+```
+# apt install qemu-system-x86_64
+$ make run-aura
+```
+
+### Bare Metal
+Before doing this, make **sure** it's the right disk.
+
+```
+# dd if=../aura/build/aura.img of=/dev/sdx bs=1K
 ```
 
 ## On Linux
 If you'd like to run Mish code on Linux, you can do this as well.
 
+### Building
 ```
-$ mkdir project-asiago
-$ cd project-asiago
-$ git clone git@github.com:neonorb/project-asiago
-$ cd project asiago
 $ make mish-linux
-$ ../mish-linux/build/mish
+```
+
+### Installing & Running
+If you'd like, you may skip installing Mish, and simply execute the binary directly via: `../mish-linux/build/mish`
+
+Otherwise, you may just install Mish:
+
+```
+# make install-linux
+$ mish
 ```
 
 # Contributing
