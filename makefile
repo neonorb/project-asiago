@@ -2,6 +2,9 @@
 all: aura mish-linux
 
 .PHONY:
+rebuild: clean all
+
+.PHONY:
 clean:
 	cd ../aura       && make clean
 	cd ../mish-linux && make clean
@@ -51,6 +54,18 @@ make-base:
 
 install-linux: mish-linux
 	cd ../mish-linux && make install
+
+# --- test ---
+
+.PHONY:
+test-mish: clean
+	DEBUGGING=true ALLOW_TEST=true make mish-linux
+	valgrind --track-origins=yes --read-var-info=yes --leak-check=full ../mish-linux/build/mish --test
+
+.PHONY:
+test-aura: clean
+	DO_TEST=true make aura
+	make run-aura
 
 # --- Git ----
 
