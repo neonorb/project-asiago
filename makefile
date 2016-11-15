@@ -60,7 +60,7 @@ install-linux: mish-linux
 .PHONY:
 test-mish: clean
 	@DEBUGGING=true ALLOW_TEST=true make -s mish-linux
-	@valgrind --track-origins=yes --read-var-info=yes --leak-check=full --show-leak-kinds=all --show-mismatched-frees=no ../mish-linux/build/mish --test
+	@valgrind --track-origins=yes --read-var-info=yes --leak-check=full --show-leak-kinds=all --show-mismatched-frees=no ../mish-linux/build/mish --test 2>&1 | more
 
 .PHONY:
 test-aura: clean
