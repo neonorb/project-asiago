@@ -1,3 +1,5 @@
 packages can have flags, one being the ability to turn off checks (such as recusion)
 
 physical knob has lights around it to indicate the "position", this allows the "position" to be changed by software
+
+wireless headphones have pressure sensor to turn on/off the headphones
