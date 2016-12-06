@@ -9,6 +9,14 @@ Project Asiago is the idea that the current computer system is inheritenly broke
  - [ ] networking
  - [ ] text formatting specification
 
+# Projects
+Here are all the sub-projects in Project Asiago:
+ - [Aura](https://github.com/neonorb/aura) - OS
+ - [Feta](https://github.com/neonorb/feta) - standard library
+ - [Mish](https://github.com/neonorb/mish) - language library
+ - [Make Base](https://github.com/neonorb/make-base) - shared management/build scripts
+ - [Mish Linux](https://github.com/neonorb/mish-linux) - Linux base for Mish
+
 # Getting
 This repository contains a makefile that allows you to easily download and build all the required dependencies.
 
@@ -59,7 +67,9 @@ $ mish
 ```
 
 # Contributing
-If you'd like to contribute, you will need a GPG key to sign your commits with. There is a great tutorial over here: http://blog.dpg.io/articles/gpg-linux. Once you have the GPG key, you will want to fork the desired repository, make your changes and **make sure you sign the commit**. Then you can submit a push request.
+If you'd like to contribute, checkout the issues pages on all the repos. If you find something you want to work on, be it a bug fix or an entirly new feature, go ahead!
+
+You will need a GPG key to sign your commits with, there is a great tutorial over [here](http://blog.dpg.io/articles/gpg-linux). You will also want to [add it to your GitHub account](https://help.github.com/articles/adding-a-new-gpg-key-to-your-github-account/). Once you have the GPG key, you will want to fork the desired repository, make your changes and **make sure you sign the commit**. Then you can submit a push request.
 
 # Code Style Guide
 Try to keep the style similar to what we have already. Main points:
