@@ -106,3 +106,20 @@ pull:
 	@cd ../make-base  && git pull
 	@cd ../mish       && git pull
 	@cd ../feta       && git pull
+
+# use the rest as arguments for "run"
+RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+# ...and turn them into do-nothing targets
+$(eval $(RUN_ARGS):;@:)
+
+.PHONY:
+checkout:
+	@git checkout $(RUN_ARGS)
+	
+	@cd ../aura       && git checkout $(RUN_ARGS)
+	@cd ../mish-linux && git checkout $(RUN_ARGS)
+	
+	@cd ../make-base  && git checkout $(RUN_ARGS)
+	@cd ../mish       && git checkout $(RUN_ARGS)
+	@cd ../feta       && git checkout $(RUN_ARGS)
+	
