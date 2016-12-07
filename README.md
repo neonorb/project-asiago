@@ -26,6 +26,24 @@ $ mkdir project-asiago
 $ cd project-asiago
 $ git clone git@github.com:neonorb/project-asiago
 $ cd project-asiago
+$ make init
+```
+
+Your directory structure should look something like this (`...` means there's more stuff not listed):
+
+```
+project-asiago/
+├─project-asiago/
+│ ├─makefile
+│ └─...
+├─aura/
+│ ├─makefile
+│ ├─src/
+│ │ └─...
+│ └─...
+├─mish/
+│ └─...
+└─...
 ```
 
 ## Aura
@@ -77,5 +95,6 @@ Try to keep the style similar to what we have already. Main points:
  - tabs > spaces
  - classes are like this: `MyClassThatIReallyLove`
  - variables: `myVariable`
+ - constants: `MY_CONSTANT`
  - functions: `myFunction()`
- - unless it's in a module, then separate with underscores: `uefi_terminal_writeString()`
+ - namespaces
