@@ -25,22 +25,6 @@
 <p>Project Asiago is the idea that the current computer system is inheritenly broken, and needs to be fixed. Project Asiago is reinventing this system to achieve it's full potential.</p>
 
 <h1>
-<a id="major-todos" class="anchor" href="#major-todos" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Major TODOs</h1>
-
-<ul>
-<li>[ ] operating system
-
-<ul>
-<li>[ ] major driver support</li>
-</ul>
-</li>
-<li>[ ] Mish parser</li>
-<li>[ ] non-volatile storage</li>
-<li>[ ] networking</li>
-<li>[ ] text formatting specification</li>
-</ul>
-
-<h1>
 <a id="projects" class="anchor" href="#projects" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Projects</h1>
 
 <p>Here are all the sub-projects in Project Asiago:</p>
@@ -53,9 +37,11 @@
 <li>
 <a href="https://github.com/neonorb/mish">Mish</a> - language library</li>
 <li>
+<a href="https://github.com/neonorb/mish-linux">Mish Linux</a> - Linux base for Mish</li>
+<li>
 <a href="https://github.com/neonorb/make-base">Make Base</a> - shared management/build scripts</li>
 <li>
-<a href="https://github.com/neonorb/mish-linux">Mish Linux</a> - Linux base for Mish</li>
+<a href="https://github.com/neonorb/project-asiago">Project Asiago</a> - scripts used to build and maintain all these projects</li>
 </ul>
 
 <h1>
@@ -69,6 +55,23 @@
 $ cd project-asiago
 $ git clone git@github.com:neonorb/project-asiago
 $ cd project-asiago
+$ make init
+</code></pre>
+
+<p>Your directory structure should look something like this (<code>...</code> means there's more stuff not listed):</p>
+
+<pre><code>project-asiago/
+├─project-asiago/
+│ ├─makefile
+│ └─...
+├─aura/
+│ ├─makefile
+│ ├─src/
+│ │ └─...
+│ └─...
+├─mish/
+│ └─...
+└─...
 </code></pre>
 
 <h2>
@@ -135,10 +138,11 @@ $ mish
 </li>
 <li>variables: <code>myVariable</code>
 </li>
+<li>constants: <code>MY_CONSTANT</code>
+</li>
 <li>functions: <code>myFunction()</code>
 </li>
-<li>unless it's in a module, then separate with underscores: <code>uefi_terminal_writeString()</code>
-</li>
+<li>namespaces</li>
 </ul>
 
       <footer class="site-footer">
