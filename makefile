@@ -31,6 +31,10 @@ run-aura: aura
 	@cd ../aura && make -s run
 
 .PHONY:
+run-aura-cli: aura
+	@cd ../aura && make -s run-cli
+
+.PHONY:
 run-linux: mish-linux
 	@cd ../mish-linux && build/mish
 
