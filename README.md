@@ -3,7 +3,7 @@ Project Asiago is the idea that the current computer system is inheritenly broke
 
 # Projects
 Here are all the sub-projects in Project Asiago:
- - [Aura](https://github.com/neonorb/aura) - OS
+ - [Aura](https://github.com/neonorb/aura) - kernel
  - [Feta](https://github.com/neonorb/feta) - standard library
  - [Mish](https://github.com/neonorb/mish) - language library
  - [Mish Linux](https://github.com/neonorb/mish-linux) - Linux base for Mish
