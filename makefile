@@ -1,3 +1,10 @@
+REPOS = project-asiago aura mish-linux mish feta make-base
+
+# use the rest as arguments
+ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+# ...and turn them into do-nothing targets
+$(eval $(ARGS):;@:)
+
 .PHONY:
 all: aura mish-linux
 
@@ -6,11 +13,16 @@ rebuild: clean all
 
 .PHONY:
 clean:
-	@cd ../aura       && make -s clean
-	@cd ../mish-linux && make -s clean
+	@$(foreach repo,$(filter-out project-asiago make-base,$(REPOS)), \
+	cd ../$(repo) && make -s clean \
+	;)
 	
-	@cd ../mish       && make -s clean
-	@cd ../feta       && make -s clean
+.PHONY:
+init:
+	@$(foreach repo,$(REPOS), \
+	if [ ! -d ../$(repo) ]; then git clone git@github.com:neonorb/$(repo) ../$(repo); fi && \
+	cd ../$(repo) && git config --local --add commit.gpgsign true \
+	;)
 
 # ---- running ----
 
@@ -26,29 +38,24 @@ run-linux: mish-linux
 
 .PHONY:
 aura: make-base feta mish
-	@if [ ! -d ../aura ]; then git clone git@github.com:neonorb/aura ../aura; fi
 	@cd ../aura && make -s img
 
 .PHONY:
 mish-linux: make-base feta mish
-	@if [ ! -d ../mish-linux ]; then git clone git@github.com:neonorb/mish-linux ../mish-linux; fi
 	@cd ../mish-linux && make -s
 
 # libs
 	
 .PHONY:
 feta: make-base
-	@if [ ! -d ../feta ]; then git clone git@github.com:neonorb/feta ../feta; fi
 	@cd ../feta && make -s lib
 
 .PHONY:
 mish: make-base feta
-	@if [ ! -d ../mish ]; then git clone git@github.com:neonorb/mish ../mish; fi
 	@cd ../mish && make -s lib
 
 .PHONY:
 make-base:
-	@if [ ! -d ../make-base ]; then git clone git@github.com:neonorb/make-base ../make-base; fi
 
 # ---- install ----
 
@@ -73,53 +80,27 @@ COMMIT_COMMAND=bash ../project-asiago/commit.sh ; echo ""
 
 .PHONY:
 commit:
-	@$(COMMIT_COMMAND)
-	
-	@cd ../aura       && $(COMMIT_COMMAND)
-	@cd ../mish-linux && $(COMMIT_COMMAND)
-	
-	@cd ../make-base  && $(COMMIT_COMMAND)
-	@cd ../mish       && $(COMMIT_COMMAND)
-	@cd ../feta       && $(COMMIT_COMMAND)
+	@$(foreach repo,$(REPOS), \
+	cd ../$(repo) && $(COMMIT_COMMAND) \
+	;)
 
 .PHONY:
 push:
-	@git push
-	
-	@cd ../aura       && git push
-	@cd ../mish-linux && git push
-	
-	@cd ../make-base  && git push
-	@cd ../mish       && git push
-	@cd ../feta       && git push
+	@$(foreach repo,$(REPOS), \
+	cd ../$(repo) && git push \
+	;)
 
 .PHONY:
 commit-push: commit push
 
 .PHONY:
 pull:
-	@git pull
-	
-	@cd ../aura       && git pull
-	@cd ../mish-linux && git pull
-	
-	@cd ../make-base  && git pull
-	@cd ../mish       && git pull
-	@cd ../feta       && git pull
-
-# use the rest as arguments for "run"
-RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-# ...and turn them into do-nothing targets
-$(eval $(RUN_ARGS):;@:)
+	@$(foreach repo,$(REPOS), \
+	cd ../$(repo) && git pull \
+	;)
 
 .PHONY:
 checkout:
-	@git checkout $(RUN_ARGS)
-	
-	@cd ../aura       && git checkout $(RUN_ARGS)
-	@cd ../mish-linux && git checkout $(RUN_ARGS)
-	
-	@cd ../make-base  && git checkout $(RUN_ARGS)
-	@cd ../mish       && git checkout $(RUN_ARGS)
-	@cd ../feta       && git checkout $(RUN_ARGS)
-	
+	@$(foreach repo,$(REPOS), \
+	cd ../$(repo) && git checkout $(ARGS) \
+	;)
