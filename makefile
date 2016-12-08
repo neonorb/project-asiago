@@ -16,12 +16,15 @@ clean:
 	@$(foreach repo,$(filter-out project-asiago make-base,$(REPOS)), \
 	cd ../$(repo) && make -s clean \
 	;)
-	
+
+GIT_ROOT=git@github.com:neonorb
 .PHONY:
 init:
 	@$(foreach repo,$(REPOS), \
-	if [ ! -d ../$(repo) ]; then git clone git@github.com:neonorb/$(repo) ../$(repo); fi && \
-	cd ../$(repo) && git config --local --add commit.gpgsign true \
+	if [ ! -d ../$(repo) ]; then git clone $(GIT_ROOT)/$(repo) ../$(repo); fi && \
+	cd ../$(repo) && \
+	git remote set-url origin $(GIT_ROOT)/$(repo) && \
+	git config --local --add commit.gpgsign true \
 	;)
 
 # ---- running ----

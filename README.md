@@ -1,5 +1,5 @@
 # Project Asiago
-Project Asiago is the idea that the current computer system is inheritenly broken, and needs to be fixed. Project Asiago is reinventing this system to achieve it's full potential.
+Project Asiago is the idea that the current computer system is inherently broken, and needs to be fixed. Project Asiago is reinventing this system to achieve it's full potential.
 
 # Projects
 Here are all the sub-projects in Project Asiago:
@@ -78,9 +78,17 @@ $ mish
 ```
 
 # Contributing
-If you'd like to contribute, checkout the issues pages on all the repos. If you find something you want to work on, be it a bug fix or an entirly new feature, go ahead!
+If you'd like to contribute, take a look at the issue pages on all the repos. If you find something you want to work on, be it a bug fix or an entirly new feature, go ahead!
 
-You will need a GPG key to sign your commits with, there is a great tutorial over [here](http://blog.dpg.io/articles/gpg-linux). You will also want to [add it to your GitHub account](https://help.github.com/articles/adding-a-new-gpg-key-to-your-github-account/). Once you have the GPG key, you will want to fork the desired repository, make your changes and **make sure you sign the commit**. Then you can submit a push request.
+You will need a GPG key to sign your commits with, there is a great tutorial over [here](http://blog.dpg.io/articles/gpg-linux) to get you started. You will also want to [add it to your GitHub account](https://help.github.com/articles/adding-a-new-gpg-key-to-your-github-account/).
+
+Next, you'll want to fork the desired repository (as you don't have write permissions to the main one). Then you need to update your repository remote locations, to do this, run: `make init GIT_ROOT=git@github.com:<username>`
+
+We use the [Git Flow](http://nvie.com/posts/a-successful-git-branching-model/) branching model, so you'll need to checkout the `develop` branch: `make checkout develop`
+
+Once you make your desired changes, write any necessary unit tests and run them. Although it *should* be automatic, **make sure you sign the commit(s)**.
+
+Once you've done all that, you may submit a push request.
 
 # Code Style Guide
 Try to keep the style similar to what we have already. Main points:
