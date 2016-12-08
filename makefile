@@ -24,7 +24,8 @@ init:
 	if [ ! -d ../$(repo) ]; then git clone $(GIT_ROOT)/$(repo) ../$(repo); fi && \
 	cd ../$(repo) && \
 	git remote set-url origin $(GIT_ROOT)/$(repo) && \
-	git remote add upstream $(GIT_ROOT_ORIGIONAL) 2>/dev/null; \
+	git remote add upstream git@github.com:neonorb 2>/dev/null || \
+	git remote set-url upstream $(GIT_ROOT_ORIGIONAL)/$(repo) && \
 	git config --local --add commit.gpgsign true \
 	;)
 
@@ -100,7 +101,13 @@ commit-push: commit push
 .PHONY:
 pull:
 	@$(foreach repo,$(REPOS), \
-	echo $(repo)... && cd ../$(repo) && git pull --all \
+	echo $(repo)... && cd ../$(repo) && git pull \
+	;)
+
+.PHONY:
+pull-upstream:
+	@$(foreach repo,$(REPOS), \
+	echo $(repo)... && cd ../$(repo) && git pull upstream `git rev-parse --abbrev-ref HEAD` \
 	;)
 
 .PHONY:
