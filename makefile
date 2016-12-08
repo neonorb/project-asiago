@@ -116,4 +116,4 @@ checkout:
 	echo $(repo)... && cd ../$(repo) && git checkout $(ARGS) \
 	;)
 
--include ../make-base/make-base.mk
+-include ../make-base/make-git.mk
