@@ -131,9 +131,17 @@ $ mish
 <h1>
 <a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h1>
 
-<p>If you'd like to contribute, checkout the issues pages on all the repos. If you find something you want to work on, be it a bug fix or an entirly new feature, go ahead!</p>
+<p>If you'd like to contribute, take a look at the issue pages on all the repos. If you find something you want to work on, be it a bug fix or an entirly new feature, go ahead!</p>
 
-<p>You will need a GPG key to sign your commits with, there is a great tutorial over <a href="http://blog.dpg.io/articles/gpg-linux">here</a>. You will also want to <a href="https://help.github.com/articles/adding-a-new-gpg-key-to-your-github-account/">add it to your GitHub account</a>. Once you have the GPG key, you will want to fork the desired repository, make your changes and <strong>make sure you sign the commit</strong>. Then you can submit a push request.</p>
+<p>You will need a GPG key to sign your commits with, there is a great tutorial over <a href="http://blog.dpg.io/articles/gpg-linux">here</a> to get you started. You will also want to <a href="https://help.github.com/articles/adding-a-new-gpg-key-to-your-github-account/">add it to your GitHub account</a>.</p>
+
+<p>Next, you'll want to fork the desired repository (as you don't have write permissions to the main one). Then you need to update your repository remote locations, to do this, run: <code>make init GIT_ROOT=git@github.com:&lt;username&gt;</code></p>
+
+<p>We use the <a href="http://nvie.com/posts/a-successful-git-branching-model/">Git Flow</a> branching model, so you'll need to checkout the <code>develop</code> branch: <code>make checkout develop</code></p>
+
+<p>Once you make your desired changes, write any necessary unit tests and run them. Although it <em>should</em> be automatic, <strong>make sure you sign the commit(s)</strong>.</p>
+
+<p>Once you've done all that, you may submit a push request.</p>
 
 <h1>
 <a id="code-style-guide" class="anchor" href="#code-style-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Code Style Guide</h1>
