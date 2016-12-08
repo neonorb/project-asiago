@@ -78,7 +78,7 @@ $ mish
 ```
 
 ## Updating
-If you'd like to recieve any updates, just run `make pull`.
+The main repo will regularly get updated, to retrieve these, run `make pull-upstream`.
 
 ## Contributing
 If you'd like to contribute, take a look at the issue pages on all the repos. If you find something you want to work on, be it a bug fix or an entirly new feature, go ahead!

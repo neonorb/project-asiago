@@ -24,7 +24,7 @@ init:
 	if [ ! -d ../$(repo) ]; then git clone $(GIT_ROOT)/$(repo) ../$(repo); fi && \
 	cd ../$(repo) && \
 	git remote set-url origin $(GIT_ROOT)/$(repo) && \
-	git remote add upstream git@github.com:neonorb 2>/dev/null || \
+	git remote add upstream url-placeholder 2>/dev/null || \
 	git remote set-url upstream $(GIT_ROOT_ORIGIONAL)/$(repo) && \
 	git config --local --add commit.gpgsign true \
 	;)
@@ -79,7 +79,7 @@ test-aura: clean
 	@DO_TEST=true make -s aura
 	@make -s run-aura
 
-# --- Git ----
+# ---- Git ----
 
 COMMIT_COMMAND=bash ../project-asiago/commit.sh ; echo ""
 
@@ -115,3 +115,5 @@ checkout:
 	@$(foreach repo,$(REPOS), \
 	echo $(repo)... && cd ../$(repo) && git checkout $(ARGS) \
 	;)
+
+-include ../make-base/make-base.mk
