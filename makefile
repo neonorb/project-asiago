@@ -84,13 +84,13 @@ COMMIT_COMMAND=bash ../project-asiago/commit.sh ; echo ""
 .PHONY:
 commit:
 	@$(foreach repo,$(REPOS), \
-	cd ../$(repo) && $(COMMIT_COMMAND) \
+	echo $(repo)... && cd ../$(repo) && $(COMMIT_COMMAND) \
 	;)
 
 .PHONY:
 push:
 	@$(foreach repo,$(REPOS), \
-	cd ../$(repo) && git push \
+	echo $(repo)... && cd ../$(repo) && git push --all \
 	;)
 
 .PHONY:
@@ -99,11 +99,11 @@ commit-push: commit push
 .PHONY:
 pull:
 	@$(foreach repo,$(REPOS), \
-	cd ../$(repo) && git pull \
+	echo $(repo)... && cd ../$(repo) && git pull --all \
 	;)
 
 .PHONY:
 checkout:
 	@$(foreach repo,$(REPOS), \
-	cd ../$(repo) && git checkout $(ARGS) \
+	echo $(repo)... && cd ../$(repo) && git checkout $(ARGS) \
 	;)

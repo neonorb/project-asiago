@@ -1,21 +1,14 @@
 # Project Asiago
-Project Asiago is the idea that the current computer system is inheritenly broken, and needs to be fixed. Project Asiago is reinventing this system to achieve it's full potential.
-
-# Major TODOs
- - [ ] operating system
-  - [ ] major driver support
- - [ ] Mish parser
- - [ ] non-volatile storage
- - [ ] networking
- - [ ] text formatting specification
+Project Asiago is the idea that the current computer system is inherently broken, and needs to be fixed. Project Asiago is reinventing this system to achieve it's full potential.
 
 # Projects
 Here are all the sub-projects in Project Asiago:
  - [Aura](https://github.com/neonorb/aura) - OS
  - [Feta](https://github.com/neonorb/feta) - standard library
  - [Mish](https://github.com/neonorb/mish) - language library
- - [Make Base](https://github.com/neonorb/make-base) - shared management/build scripts
  - [Mish Linux](https://github.com/neonorb/mish-linux) - Linux base for Mish
+ - [Make Base](https://github.com/neonorb/make-base) - shared management/build scripts
+ - [Project Asiago](https://github.com/neonorb/project-asiago) - scripts used to build and maintain all these projects
 
 # Getting
 This repository contains a makefile that allows you to easily download and build all the required dependencies.
