@@ -16,14 +16,16 @@ clean:
 	@$(foreach repo,$(filter-out project-asiago make-base,$(REPOS)), \
 	cd ../$(repo) && make -s clean \
 	;)
-
-GIT_ROOT=git@github.com:neonorb
+GIT_ROOT_ORIGIONAL=git@github.com:neonorb
+GIT_ROOT=$(GIT_ROOT_ORIGIONAL)
 .PHONY:
 init:
 	@$(foreach repo,$(REPOS), \
 	if [ ! -d ../$(repo) ]; then git clone $(GIT_ROOT)/$(repo) ../$(repo); fi && \
 	cd ../$(repo) && \
 	git remote set-url origin $(GIT_ROOT)/$(repo) && \
+	git remote add upstream url-placeholder 2>/dev/null || \
+	git remote set-url upstream $(GIT_ROOT_ORIGIONAL)/$(repo) && \
 	git config --local --add commit.gpgsign true \
 	;)
 
@@ -77,7 +79,7 @@ test-aura: clean
 	@DO_TEST=true make -s aura
 	@make -s run-aura
 
-# --- Git ----
+# ---- Git ----
 
 COMMIT_COMMAND=bash ../project-asiago/commit.sh ; echo ""
 
@@ -99,7 +101,13 @@ commit-push: commit push
 .PHONY:
 pull:
 	@$(foreach repo,$(REPOS), \
-	echo $(repo)... && cd ../$(repo) && git pull --all \
+	echo $(repo)... && cd ../$(repo) && git pull \
+	;)
+
+.PHONY:
+pull-upstream:
+	@$(foreach repo,$(REPOS), \
+	echo $(repo)... && cd ../$(repo) && git pull upstream `git rev-parse --abbrev-ref HEAD` \
 	;)
 
 .PHONY:
@@ -107,3 +115,5 @@ checkout:
 	@$(foreach repo,$(REPOS), \
 	echo $(repo)... && cd ../$(repo) && git checkout $(ARGS) \
 	;)
+
+-include ../make-base/make-git.mk

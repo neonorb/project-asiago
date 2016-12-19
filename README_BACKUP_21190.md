@@ -1,12 +1,15 @@
 # Project Asiago
 Project Asiago is the idea that the current computer system is inherently broken, and needs to be fixed. Project Asiago is reinventing this system to achieve it's full potential.
 
+<<<<<<< HEAD
 ![Computer are shit protocols built on shit specs, never designed for security from the ground up](https://i.imgur.com/dptlklX.png)
 
 ![Too many ways in, you're fucked if they want to get you](https://i.imgur.com/TY5A46q.png)
 
+# Projects
+=======
 ## Projects
-
+>>>>>>> 5a9aa2806be590da0d2bbfaa2fcdfd0eb29574a6
 Here are all the sub-projects in Project Asiago:
  - [Aura](https://github.com/neonorb/aura) - kernel
  - [Feta](https://github.com/neonorb/feta) - standard library
