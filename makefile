@@ -1,4 +1,4 @@
-REPOS = project-asiago aura mish-linux mish feta make-base
+REPOS = project-asiago aura mish-linux mish feta make-base mish-bot
 
 # use the rest as arguments
 ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
@@ -39,6 +39,10 @@ run-aura: aura
 run-linux: mish-linux
 	@cd ../mish-linux && build/mish
 
+.PHONY:
+run-bot: mish-bot
+	@cd ../mish-bot && build/mishbot --token-env
+
 # ---- building ----
 
 .PHONY:
@@ -48,6 +52,10 @@ aura: make-base feta mish
 .PHONY:
 mish-linux: make-base feta mish
 	@cd ../mish-linux && make -s
+
+.PHONY:
+mish-bot: make-base feta mish
+	@cd ../mish-bot && make -s
 
 # libs
 	
