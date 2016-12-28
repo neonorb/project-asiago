@@ -1,4 +1,8 @@
-REPOS = project-asiago aura mish-linux mish feta make-base mish-android mish-bot
+<<<<<<< HEAD
+REPOS = project-asiago aura mish-linux mish feta make-base mish-bot
+=======
+REPOS = project-asiago aura mish-linux mish feta make-base mish-android
+>>>>>>> ec566373a4a630ecd9f20d4836403ab2781b60b0
 
 # use the rest as arguments
 ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
