@@ -1,19 +1,19 @@
-REPOS = project-asiago aura mish-linux mish feta make-base mish-android mish-bot
+REPOS=project-asiago aura mish-linux mish feta make-base mish-android mish-bot
 
 # use the rest as arguments
-ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+ARGS:=$(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 # ...and turn them into do-nothing targets
 $(eval $(ARGS):;@:)
 
 .PHONY:
-all: aura mish-linux
+all: feta mish
 
 .PHONY:
 rebuild: clean all
 
 .PHONY:
 clean:
-	@$(foreach repo,$(filter-out project-asiago make-base,$(REPOS)), \
+	@$(foreach repo,$(filter-out project-asiago make-base mish-android,$(REPOS)), \
 	cd ../$(repo) && make -s clean \
 	;)
 GIT_ROOT_ORIGIONAL=git@github.com:neonorb
