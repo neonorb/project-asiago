@@ -37,34 +37,39 @@ run-aura: aura
 
 .PHONY:
 run-linux: mish-linux
-	@cd ../mish-linux && build/mish
+	@cd ../mish-linux && build/x86_64/mishlinux.bin
 
 .PHONY:
 run-bot: mish-bot
-	@cd ../mish-bot && build/mishbot --token-env
+	@cd ../mish-bot && build/x86_64/mishbot.bin --token-env
 
 # ---- building ----
 
 .PHONY:
 aura: make-base feta mish
+	@echo Aura...
 	@cd ../aura && make -s img
 
 .PHONY:
 mish-linux: make-base feta mish
+	@echo Mish Linux...
 	@cd ../mish-linux && make -s
 
 .PHONY:
 mish-bot: make-base feta mish
+	@echo Mish Bot...
 	@cd ../mish-bot && make -s
 
 # libs
 	
 .PHONY:
 feta: make-base
+	@echo Feta...
 	@cd ../feta && make -s lib
 
 .PHONY:
 mish: make-base feta
+	@echo Mish...
 	@cd ../mish && make -s lib
 
 .PHONY:
