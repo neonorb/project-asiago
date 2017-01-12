@@ -35,13 +35,17 @@ init:
 run-aura: aura
 	@cd ../aura && make -s run
 
+debug-aura: clean
+	@DEBUGGING=true make -s aura
+	@cd ../aura && ./debug.sh
+
 .PHONY:
 run-linux: mish-linux
-	@cd ../mish-linux && build/x86_64/mishlinux.bin
+	@cd ../mish-linux && build/x86_64/mish-linux.bin
 
 .PHONY:
 run-bot: mish-bot
-	@cd ../mish-bot && build/x86_64/mishbot.bin --token-env
+	@cd ../mish-bot && build/x86_64/mish-bot.bin --token-env
 
 # ---- building ----
 
