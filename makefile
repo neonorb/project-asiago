@@ -47,6 +47,25 @@ run-linux: mish-linux
 run-bot: mish-bot
 	@cd ../mish-bot && build/x86_64/mish-bot.bin --token-env
 
+# --- testing ---
+
+.PHONY:
+test-all: test-mish-linux test-aura
+
+.PHONY:
+test-mish-linux: clean
+	@ALLOW_TEST=true make -s mish-linux
+	@valgrind --track-origins=yes --read-var-info=yes --leak-check=full --show-leak-kinds=all --show-mismatched-frees=no ../mish-linux/build/x86_64/mish-linux.bin --test 2>&1 | more
+
+.PHONY:
+test-aura: clean
+	@AURA_DOTEST=true make -s aura
+	@TESTING=true make -s run-aura
+
+debugtest-aura: clean
+	@DEBUGGING=true ALLOW_TEST=true AURA_DOTEST=true make -s aura
+	@cd ../aura && ./debug.sh
+
 # ---- building ----
 
 .PHONY:
@@ -83,18 +102,6 @@ make-base:
 
 install-linux: mish-linux
 	@cd ../mish-linux && make -s install
-
-# --- test ---
-
-.PHONY:
-test-mish: clean
-	@DEBUGGING=true ALLOW_TEST=true make -s mish-linux
-	@valgrind --track-origins=yes --read-var-info=yes --leak-check=full --show-leak-kinds=all --show-mismatched-frees=no ../mish-linux/build/mish --test 2>&1 | more
-
-.PHONY:
-test-aura: clean
-	@DO_TEST=true make -s aura
-	@make -s run-aura
 
 # ---- Git ----
 
