@@ -1,4 +1,4 @@
-REPOS=project-asiago aura mish-linux mish feta make-base mish-android mish-bot
+REPOS=project-asiago aura mish-linux mish feta make-base mish-android mish-bot motal
 
 # use the rest as arguments
 ARGS:=$(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
