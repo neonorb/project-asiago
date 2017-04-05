@@ -1,4 +1,4 @@
-REPOS=project-asiago aura mish-linux mish feta make-base mish-android mish-bot
+REPOS=project-asiago aura mish-linux mish feta make-base mish-android mish-bot danbo
 
 # use the rest as arguments
 ARGS:=$(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
@@ -91,9 +91,14 @@ feta: make-base
 	@cd ../feta && make -s lib
 
 .PHONY:
-mish: make-base feta
+mish: make-base feta danbo
 	@echo Mish...
 	@cd ../mish && make -s lib
+
+.PHONY:
+danbo: make-base feta
+	@echo Danbo...
+	@cd ../danbo && make -s lib
 
 .PHONY:
 make-base:
