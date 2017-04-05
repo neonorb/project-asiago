@@ -6,15 +6,15 @@ ARGS:=$(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 $(eval $(ARGS):;@:)
 
 .PHONY:
-all: feta mish
+all: aura mish-linux mish-bot feta mish danbo
 
 .PHONY:
 rebuild: clean all
 
 .PHONY:
 clean:
-	@$(foreach repo,$(filter-out project-asiago make-base mish-android,$(REPOS)), \
-	cd ../$(repo) && make -s clean \
+	$(NO_PRINT_COMMAND)$(foreach repo,$(filter-out project-asiago make-base mish-android,$(REPOS)), \
+	cd ../$(repo) && make $(NO_PRINT_COMMAND_FLAG) clean \
 	;)
 GIT_ROOT_ORIGIONAL=git@github.com:neonorb
 GIT_ROOT=$(GIT_ROOT_ORIGIONAL)
@@ -31,12 +31,15 @@ init:
 
 # ---- running ----
 
+NO_PRINT_COMMAND_FLAG=$(if $(PRINT_COMMANDS),,-s)
+NO_PRINT_COMMAND=$(if $(PRINT_COMMANDS),,@)
+
 .PHONY:
 run-aura: aura
-	@cd ../aura && make -s run
+	@cd ../aura && make $(NO_PRINT_COMMAND_FLAG) run
 
 debug-aura: clean
-	@DEBUGGING=true make -s aura
+	@DEBUGGING=true make $(NO_PRINT_COMMAND_FLAG) aura
 	@cd ../aura && ./debug.sh
 
 .PHONY:
@@ -54,16 +57,16 @@ test-all: test-mish-linux test-aura
 
 .PHONY:
 test-mish-linux: clean
-	@ALLOW_TEST=true make -s mish-linux
+	@ALLOW_TEST=true make $(NO_PRINT_COMMAND_FLAG) mish-linux
 	@valgrind --track-origins=yes --read-var-info=yes --leak-check=full --show-leak-kinds=all --show-mismatched-frees=no ../mish-linux/build/x86_64/mish-linux.bin --test 2>&1 | more
 
 .PHONY:
 test-aura: clean
-	@AURA_DOTEST=true make -s aura
-	@TESTING=true make -s run-aura
+	@AURA_DOTEST=true make $(NO_PRINT_COMMAND_FLAG) aura
+	@TESTING=true make $(NO_PRINT_COMMAND_FLAG) run-aura
 
 debugtest-aura: clean
-	@DEBUGGING=true ALLOW_TEST=true AURA_DOTEST=true make -s aura
+	@DEBUGGING=true ALLOW_TEST=true AURA_DOTEST=true make $(NO_PRINT_COMMAND_FLAG) aura
 	@cd ../aura && ./debug.sh
 
 # ---- building ----
@@ -71,34 +74,34 @@ debugtest-aura: clean
 .PHONY:
 aura: make-base feta mish
 	@echo Aura...
-	@cd ../aura && make -s img
+	@cd ../aura && make $(NO_PRINT_COMMAND_FLAG) img
 
 .PHONY:
 mish-linux: make-base feta mish
 	@echo Mish Linux...
-	@cd ../mish-linux && make -s
+	@cd ../mish-linux && make $(NO_PRINT_COMMAND_FLAG)
 
 .PHONY:
 mish-bot: make-base feta mish
 	@echo Mish Bot...
-	@cd ../mish-bot && make -s
+	@cd ../mish-bot && make $(NO_PRINT_COMMAND_FLAG)
 
 # libs
 	
 .PHONY:
 feta: make-base
 	@echo Feta...
-	@cd ../feta && make -s lib
+	@cd ../feta && make $(NO_PRINT_COMMAND_FLAG) lib
 
 .PHONY:
 mish: make-base feta danbo
 	@echo Mish...
-	@cd ../mish && make -s lib
+	@cd ../mish && make $(NO_PRINT_COMMAND_FLAG) lib
 
 .PHONY:
 danbo: make-base feta
 	@echo Danbo...
-	@cd ../danbo && make -s lib
+	@cd ../danbo && make $(NO_PRINT_COMMAND_FLAG) lib
 
 .PHONY:
 make-base:
@@ -106,7 +109,7 @@ make-base:
 # ---- install ----
 
 install-linux: mish-linux
-	@cd ../mish-linux && make -s install
+	@cd ../mish-linux && make $(NO_PRINT_COMMAND_FLAG) install
 
 # ---- Git ----
 
