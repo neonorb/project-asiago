@@ -1,4 +1,4 @@
-REPOS=project-asiago aura mish-linux mish feta make-base mish-android mish-bot danbo
+REPOS=project-asiago aura mish-linux mish feta make-base mish-android mish-bot motal danbo
 
 # use the rest as arguments
 ARGS:=$(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
@@ -24,6 +24,7 @@ init:
 	if [ ! -d ../$(repo) ]; then git clone $(GIT_ROOT)/$(repo) ../$(repo); fi && \
 	cd ../$(repo) && \
 	git remote set-url origin $(GIT_ROOT)/$(repo) && \
+	git branch --set-upstream-to=origin/develop develop && \
 	git remote add upstream url-placeholder 2>/dev/null || \
 	git remote set-url upstream $(GIT_ROOT_ORIGIONAL)/$(repo) && \
 	git config --local --add commit.gpgsign true \
