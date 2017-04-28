@@ -1,15 +1,24 @@
 # Project Asiago
-Project Asiago is the idea that the current computer system is inherently broken, and needs to be fixed. Project Asiago is reinventing this system to achieve it's full potential.
+We belive that most computer systems are inheritently broken. Project Asiago is reinventing everything as a unified whole to fix these problems.
 
+If you'd like to discuss ideas and concepts about the development of Project Asiago, feel free to join the Telegram [chat](https://t.me/joinchat/AAAAAEF_t3aEpuC9QxJ5MQ).
+
+## Philosophy
 ![Computer are shit protocols built on shit specs, never designed for security from the ground up](https://i.imgur.com/dptlklX.png)
 
 ![Too many ways in, you're fucked if they want to get you](https://i.imgur.com/TY5A46q.png)
 
-## Projects
+The "brokenness" is mainly a concern over security, stability, and integration. Systems are so fragmented that security breaches are almost inevitable. There are some systems that work wonders, Docker and GuixSD for example. However, this is almost a hack onto how the program was originally written to function and can cause other issues in and of itself. People use different languages, frameworks, and styles to do all their development, and this causes pain to the developer to provide integrations to other software. Imagine if everybody were to write everything in your favorite language, there would be no shortage of libraries and integrations available. But instead, we're stuck with IPCs by marshaling a message, sending it across a tenuous connection and unmarshaling again. It requires the developers to always account for every possible error and introduces security concerns. One could argue that different languages exist in order work better for what their used for, but I see no reason why a single language could not account for 95% of software.
 
+The goal in starting this project is to scrap everything, and start from scratch to create an entire suit of software (and hardware in the future) to replace most computer systems. It should be rock-solid in security and stability (and I'm not just saying that).
+
+Of course, nobody would flat out scrap their digital life to move to Project Asiago, so there are "backwards compatible" packages (Mish Linux, Mish Android) to allow the transition to be easier. This is similar to how the JVM is suppose to be platform independent, but the goal is to create a runtime that works flawlessly across any system. It's inevitable that such a system would be more restricted than your average C++ or Python program, but it's goal is not to be "another" language.
+
+## Projects
 Here are all the sub-projects in Project Asiago:
  - [Aura](https://github.com/neonorb/aura) - operating system
  - [Feta](https://github.com/neonorb/feta) - standard library
+ - [Danbo](https://github.com/neonorb/danbo) - parser generator
  - [Mish](https://github.com/neonorb/mish) - language library
  - [Mish Linux](https://github.com/neonorb/mish-linux) - Linux base for Mish
  - [Motal](https://github.com/neonorb/motal) - Linux distribution for Mish
@@ -17,94 +26,7 @@ Here are all the sub-projects in Project Asiago:
  - [Project Asiago](https://github.com/neonorb/project-asiago) - scripts used to build and maintain all these projects
 
 ## Getting
-This repository contains a makefile that allows you to easily download and build all the required dependencies.
-
-You'll first need to setup your directories and initialize everything. The rest of this document assumes your current directory is `~/project-asiago/project-asiago/`
-```
-$ mkdir project-asiago # may be a different folder if you'd like
-$ cd project-asiago
-$ git clone git@github.com:neonorb/project-asiago
-$ cd project-asiago
-$ make init
-```
-
-Your directory structure should look something like this (`...` means there's more stuff not listed):
-```
-project-asiago/
-├─project-asiago/
-│ ├─makefile
-│ └─...
-├─aura/
-│ ├─makefile
-│ ├─src/
-│ │ └─...
-│ └─...
-├─mish/
-│ └─...
-└─...
-```
-
-### Aura
-If you'd like to use the operating system, you may compile it. No cross compiler required!
-
-```
-$ make aura
-```
-
-#### Running
-##### QEMU
-```
-# apt install qemu-system-x86_64
-$ make run-aura
-```
-
-##### Bare Metal
-Before doing this, make **sure** it's the right disk.
-
-```
-# dd if=../aura/build/aura.img of=/dev/sdx bs=1K
-```
-
-### On Linux
-If you'd like to run Mish code on Linux, you can do this as well.
-
-#### Building
-```
-$ make mish-linux
-```
-
-#### Installing & Running
-If you'd like, you may skip installing Mish, and simply execute the binary directly with this command: `../mish-linux/build/mish`
-
-Otherwise, you should just install Mish:
-
-```
-# make install-linux
-$ mish
-```
-
-## Updating
-The main repo will regularly get updated, to retrieve these, run `make pull-upstream`.
+See INSTALL.md for installation instructions.
 
 ## Contributing
-If you'd like to contribute, take a look at the issue pages on all the repos. If you find something you want to work on, be it a bug fix or an entirly new feature, go ahead!
-
-You will need a GPG key to sign your commits with, there is a great tutorial over [here](http://blog.dpg.io/articles/gpg-linux) to get you started. You will also want to [add it to your GitHub account](https://help.github.com/articles/adding-a-new-gpg-key-to-your-github-account/).
-
-Next, you'll want to fork the desired repository (as you don't have write permissions to the main one). Then you need to update your repository remote locations, to do this, run: `make init GIT_ROOT=git@github.com:<username>`
-
-We use the [Git Flow](http://nvie.com/posts/a-successful-git-branching-model/) branching model, so you'll need to checkout the `develop` branch: `make checkout develop`
-
-Once you make your desired changes, write any necessary unit tests and run them. Although it *should* be automatic, **make sure you sign the commit(s)**.
-
-Once you've done all that, you may submit a push request.
-
-## Code Style Guide
-Try to keep the style similar to what we have already. Main points:
- - braces on same line
- - tabs > spaces
- - classes are like this: `MyClassThatIReallyLove`
- - variables: `myVariable`
- - constants: `MY_CONSTANT`
- - functions: `myFunction()`
- - namespaces
+See CONTRIBUTING.md for how to contribute to Project Asiago.

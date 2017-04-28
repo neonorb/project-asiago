@@ -6,7 +6,7 @@ ARGS:=$(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 $(eval $(ARGS):;@:)
 
 .PHONY:
-all: aura mish-linux mish-bot feta mish danbo
+all: aura mish-linux mish-bot feta mish danbo #motal
 
 .PHONY:
 rebuild: clean all
@@ -16,24 +16,25 @@ clean:
 	$(NO_PRINT_COMMAND)$(foreach repo,$(filter-out project-asiago make-base mish-android,$(REPOS)), \
 	cd ../$(repo) && make $(NO_PRINT_COMMAND_FLAG) clean \
 	;)
-GIT_ROOT_ORIGIONAL=git@github.com:neonorb
-GIT_ROOT=$(GIT_ROOT_ORIGIONAL)
+
+GIT_ROOT_ORIGIONAL=git@github.com:neonorb/ # the upstream username
+GIT_ROOT=$(GIT_ROOT_ORIGIONAL) # the origin username; if you forked, set it like this: make init GIT_ROOT=git@github.com:<username>/
 .PHONY:
 init:
 	@$(foreach repo,$(REPOS), \
-	if [ ! -d ../$(repo) ]; then git clone $(GIT_ROOT)/$(repo) ../$(repo); fi && \
+	if [ ! -d ../$(repo) ]; then git clone $(GIT_ROOT)$(repo) ../$(repo); fi && \
 	cd ../$(repo) && \
-	git remote set-url origin $(GIT_ROOT)/$(repo) && \
+	git remote set-url origin $(GIT_ROOT)$(repo) && \
 	git branch --set-upstream-to=origin/develop develop && \
 	git remote add upstream url-placeholder 2>/dev/null || \
-	git remote set-url upstream $(GIT_ROOT_ORIGIONAL)/$(repo) && \
+	git remote set-url upstream $(GIT_ROOT_ORIGIONAL)$(repo) && \
 	git config --local --add commit.gpgsign true \
 	;)
 
-# ---- running ----
-
 NO_PRINT_COMMAND_FLAG=$(if $(PRINT_COMMANDS),,-s)
 NO_PRINT_COMMAND=$(if $(PRINT_COMMANDS),,@)
+
+# ---- running ----
 
 .PHONY:
 run-aura: aura
@@ -58,8 +59,13 @@ test-all: test-mish-linux test-aura
 
 .PHONY:
 test-mish-linux: clean
-	@ALLOW_TEST=true make $(NO_PRINT_COMMAND_FLAG) mish-linux
+	@ALLOW_TEST=true DEBUGGING=true make $(NO_PRINT_COMMAND_FLAG) mish-linux
 	@valgrind --track-origins=yes --read-var-info=yes --leak-check=full --show-leak-kinds=all --show-mismatched-frees=no ../mish-linux/build/x86_64/mish-linux.bin --test 2>&1 | more
+
+.PHONY:
+debugtest-mish-linux: clean
+	@ALLOW_TEST=true DEBUGGING=true make $(NO_PRINT_COMMAND_FLAG) mish-linux
+	@gdb --args ../mish-linux/build/x86_64/mish-linux.bin --test
 
 .PHONY:
 test-aura: clean
@@ -73,19 +79,24 @@ debugtest-aura: clean
 # ---- building ----
 
 .PHONY:
-aura: make-base feta mish
+aura: make-base feta mish danbo
 	@echo Aura...
 	@cd ../aura && make $(NO_PRINT_COMMAND_FLAG) img
 
 .PHONY:
-mish-linux: make-base feta mish
+mish-linux: make-base feta mish danbo
 	@echo Mish Linux...
 	@cd ../mish-linux && make $(NO_PRINT_COMMAND_FLAG)
 
 .PHONY:
-mish-bot: make-base feta mish
+mish-bot: make-base feta mish danbo
 	@echo Mish Bot...
 	@cd ../mish-bot && make $(NO_PRINT_COMMAND_FLAG)
+
+.PHONY:
+motal: make-base feta mish danbo
+	@echo Motal...
+	@cd ../motal && make $(NO_PRINT_COMMAND_FLAG)
 
 # libs
 	
