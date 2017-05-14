@@ -22,11 +22,11 @@ clean:
 # the upstream username
 GIT_ROOT_ORIGINAL=git@github.com:neonorb/
 # the origin username; if you forked, set it like this: make init GIT_ROOT=git@github.com:<username>/
-GIT_ROOT=$(GIT_ROOT_ORIGINAL)
+GIT_ROOT?=$(GIT_ROOT_ORIGINAL)
 .PHONY:
 init:
 	$(NO_PRINT_COMMAND)$(foreach repo,$(REPOS), \
-	if [ ! -d ../$(repo) ]; then echo "cloning $(repo)"; git clone $(GIT_ROOT)$(repo) ../$(repo); fi && \
+	if [ ! -d ../$(repo) ]; then echo "cloning $(repo)..."; git clone $(GIT_ROOT)$(repo) ../$(repo); fi && \
 	(cd ../$(repo) && \
 	git remote set-url origin $(GIT_ROOT)$(repo) && \
 	git branch --set-upstream-to=origin/develop develop && \
