@@ -17,18 +17,20 @@ clean:
 	cd ../$(repo) && make $(NO_PRINT_COMMAND_FLAG) clean \
 	;)
 
-GIT_ROOT_ORIGIONAL=git@github.com:neonorb/ # the upstream username
-GIT_ROOT=$(GIT_ROOT_ORIGIONAL) # the origin username; if you forked, set it like this: make init GIT_ROOT=git@github.com:<username>/
+# the upstream username
+GIT_ROOT_ORIGINAL=git@github.com:neonorb/
+# the origin username; if you forked, set it like this: make init GIT_ROOT=git@github.com:<username>/
+GIT_ROOT=$(GIT_ROOT_ORIGINAL)
 .PHONY:
 init:
 	@$(foreach repo,$(REPOS), \
-	if [ ! -d ../$(repo) ]; then git clone $(GIT_ROOT)$(repo) ../$(repo); fi && \
-	cd ../$(repo) && \
+	if [ ! -d ../$(repo) ]; then echo "cloning $(repo)"; git clone $(GIT_ROOT)$(repo) ../$(repo); fi && \
+	(cd ../$(repo) && \
 	git remote set-url origin $(GIT_ROOT)$(repo) && \
 	git branch --set-upstream-to=origin/develop develop && \
 	git remote add upstream url-placeholder 2>/dev/null || \
-	git remote set-url upstream $(GIT_ROOT_ORIGIONAL)$(repo) && \
-	git config --local --add commit.gpgsign true \
+	git remote set-url upstream $(GIT_ROOT_ORIGINAL)$(repo) && \
+	git config --local --add commit.gpgsign true) \
 	;)
 
 NO_PRINT_COMMAND_FLAG=$(if $(PRINT_COMMANDS),,-s)
