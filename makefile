@@ -9,19 +9,21 @@ $(eval $(ARGS):;@:)
 all: aura mish-linux mish-bot feta mish danbo #motal
 
 .PHONY:
-rebuild: clean all
+rebuild:
+	$(NO_PRINT_COMMAND) $(MAKE) $(NO_PRINT_COMMAND_FLAG) clean
+	$(NO_PRINT_COMMAND) $(MAKE) $(NO_PRINT_COMMAND_FLAG) all
 
 .PHONY:
 clean:
 	$(NO_PRINT_COMMAND)$(foreach repo,$(filter-out project-asiago make-base mish-android,$(REPOS)), \
-	cd ../$(repo) && make $(NO_PRINT_COMMAND_FLAG) clean \
+	$(MAKE) -C ../$(repo) $(NO_PRINT_COMMAND_FLAG) clean \
 	;)
 
 GIT_ROOT_ORIGIONAL=git@github.com:neonorb/ # the upstream username
 GIT_ROOT=$(GIT_ROOT_ORIGIONAL) # the origin username; if you forked, set it like this: make init GIT_ROOT=git@github.com:<username>/
 .PHONY:
 init:
-	@$(foreach repo,$(REPOS), \
+	$(NO_PRINT_COMMAND)$(foreach repo,$(REPOS), \
 	if [ ! -d ../$(repo) ]; then git clone $(GIT_ROOT)$(repo) ../$(repo); fi && \
 	cd ../$(repo) && \
 	git remote set-url origin $(GIT_ROOT)$(repo) && \
@@ -34,23 +36,25 @@ init:
 NO_PRINT_COMMAND_FLAG=$(if $(PRINT_COMMANDS),,-s)
 NO_PRINT_COMMAND=$(if $(PRINT_COMMANDS),,@)
 
+OPTS?=
+
 # ---- running ----
 
 .PHONY:
 run-aura: aura
-	@cd ../aura && make $(NO_PRINT_COMMAND_FLAG) run
+	$(NO_PRINT_COMMAND)cd ../aura && $(MAKE) $(NO_PRINT_COMMAND_FLAG) run
 
 debug-aura: clean
-	@DEBUGGING=true make $(NO_PRINT_COMMAND_FLAG) aura
-	@cd ../aura && ./debug.sh
+	$(NO_PRINT_COMMAND)DEBUGGING=true $(MAKE) $(NO_PRINT_COMMAND_FLAG) aura
+	$(NO_PRINT_COMMAND)cd ../aura && ./debug.sh
 
 .PHONY:
 run-linux: mish-linux
-	@cd ../mish-linux && build/x86_64/mish-linux.bin
+	$(NO_PRINT_COMMAND)cd ../mish-linux && build/x86_64/mish-linux.bin
 
 .PHONY:
 run-bot: mish-bot
-	@cd ../mish-bot && build/x86_64/mish-bot.bin --token-env
+	$(NO_PRINT_COMMAND)cd ../mish-bot && build/x86_64/mish-bot.bin --token-env
 
 # --- testing ---
 
@@ -59,61 +63,61 @@ test-all: test-mish-linux test-aura
 
 .PHONY:
 test-mish-linux: clean
-	@ALLOW_TEST=true DEBUGGING=true make $(NO_PRINT_COMMAND_FLAG) mish-linux
-	@valgrind --track-origins=yes --read-var-info=yes --leak-check=full --show-leak-kinds=all --show-mismatched-frees=no ../mish-linux/build/x86_64/mish-linux.bin --test 2>&1 | more
+	$(NO_PRINT_COMMAND)ALLOW_TEST=true DEBUGGING=true $(MAKE) $(NO_PRINT_COMMAND_FLAG) mish-linux
+	$(NO_PRINT_COMMAND)valgrind --track-origins=yes --read-var-info=yes --leak-check=full --show-leak-kinds=all --show-mismatched-frees=no ../mish-linux/build/x86_64/mish-linux.bin --test 2>&1 | more
 
 .PHONY:
 debugtest-mish-linux: clean
-	@ALLOW_TEST=true DEBUGGING=true make $(NO_PRINT_COMMAND_FLAG) mish-linux
-	@gdb --args ../mish-linux/build/x86_64/mish-linux.bin --test
+	$(NO_PRINT_COMMAND)ALLOW_TEST=true DEBUGGING=true $(MAKE) $(NO_PRINT_COMMAND_FLAG) mish-linux
+	$(NO_PRINT_COMMAND)gdb --args ../mish-linux/build/x86_64/mish-linux.bin --test
 
 .PHONY:
 test-aura: clean
-	@AURA_DOTEST=true make $(NO_PRINT_COMMAND_FLAG) aura
-	@TESTING=true make $(NO_PRINT_COMMAND_FLAG) run-aura
+	$(NO_PRINT_COMMAND)AURA_DOTEST=true $(MAKE) $(NO_PRINT_COMMAND_FLAG) aura
+	$(NO_PRINT_COMMAND)TESTING=true $(MAKE) $(NO_PRINT_COMMAND_FLAG) run-aura
 
 debugtest-aura: clean
-	@DEBUGGING=true ALLOW_TEST=true AURA_DOTEST=true make $(NO_PRINT_COMMAND_FLAG) aura
-	@cd ../aura && ./debug.sh
+	$(NO_PRINT_COMMAND)DEBUGGING=true ALLOW_TEST=true AURA_DOTEST=true $(MAKE) $(NO_PRINT_COMMAND_FLAG) aura
+	$(NO_PRINT_COMMAND)cd ../aura && ./debug.sh
 
 # ---- building ----
 
 .PHONY:
 aura: make-base feta mish danbo
-	@echo Aura...
-	@cd ../aura && make $(NO_PRINT_COMMAND_FLAG) img
+	$(NO_PRINT_COMMAND)echo Aura...
+	$(NO_PRINT_COMMAND)+ $(MAKE) -C ../aura $(OPTS) $(NO_PRINT_COMMAND_FLAG) img
 
 .PHONY:
 mish-linux: make-base feta mish danbo
-	@echo Mish Linux...
-	@cd ../mish-linux && make $(NO_PRINT_COMMAND_FLAG)
+	$(NO_PRINT_COMMAND) echo Mish Linux...
+	$(NO_PRINT_COMMAND)+ $(MAKE) -C ../mish-linux $(OPTS) $(NO_PRINT_COMMAND_FLAG)
 
 .PHONY:
 mish-bot: make-base feta mish danbo
-	@echo Mish Bot...
-	@cd ../mish-bot && make $(NO_PRINT_COMMAND_FLAG)
+	$(NO_PRINT_COMMAND) echo Mish Bot...
+	$(NO_PRINT_COMMAND)+ $(MAKE) -C ../mish-bot $(OPTS) $(NO_PRINT_COMMAND_FLAG)
 
 .PHONY:
 motal: make-base feta mish danbo
-	@echo Motal...
-	@cd ../motal && make $(NO_PRINT_COMMAND_FLAG)
+	$(NO_PRINT_COMMAND) echo Motal...
+	$(NO_PRINT_COMMAND)+ $(MAKE) -C ../motal $(OPTS) $(NO_PRINT_COMMAND_FLAG)
 
 # libs
 	
 .PHONY:
 feta: make-base
-	@echo Feta...
-	@cd ../feta && make $(NO_PRINT_COMMAND_FLAG) lib
+	$(NO_PRINT_COMMAND) echo Feta...
+	$(NO_PRINT_COMMAND)+ $(MAKE) -C ../feta $(OPTS) $(NO_PRINT_COMMAND_FLAG) lib
 
 .PHONY:
 mish: make-base feta danbo
-	@echo Mish...
-	@cd ../mish && make $(NO_PRINT_COMMAND_FLAG) lib
+	$(NO_PRINT_COMMAND) echo Mish...
+	$(NO_PRINT_COMMAND)+ $(MAKE) -C ../mish $(OPTS) $(NO_PRINT_COMMAND_FLAG) lib
 
 .PHONY:
 danbo: make-base feta
-	@echo Danbo...
-	@cd ../danbo && make $(NO_PRINT_COMMAND_FLAG) lib
+	$(NO_PRINT_COMMAND) echo Danbo...
+	$(NO_PRINT_COMMAND)+ $(MAKE) -C ../danbo $(OPTS) $(NO_PRINT_COMMAND_FLAG) lib
 
 .PHONY:
 make-base:
@@ -121,7 +125,7 @@ make-base:
 # ---- install ----
 
 install-linux: mish-linux
-	@cd ../mish-linux && make $(NO_PRINT_COMMAND_FLAG) install
+	$(NO_PRINT_COMMAND) $(MAKE) -C ../mish-linux $(NO_PRINT_COMMAND_FLAG) install
 
 # ---- Git ----
 
@@ -129,13 +133,13 @@ COMMIT_COMMAND=bash ../project-asiago/commit.sh ; echo ""
 
 .PHONY:
 commit:
-	@$(foreach repo,$(REPOS), \
+	$(NO_PRINT_COMMAND)$(foreach repo,$(REPOS), \
 	echo $(repo)... && cd ../$(repo) && $(COMMIT_COMMAND) \
 	;)
 
 .PHONY:
 push:
-	@$(foreach repo,$(REPOS), \
+	$(NO_PRINT_COMMAND)$(foreach repo,$(REPOS), \
 	echo $(repo)... && cd ../$(repo) && git push --all \
 	;)
 
@@ -144,19 +148,19 @@ commit-push: commit push
 
 .PHONY:
 pull:
-	@$(foreach repo,$(REPOS), \
+	$(NO_PRINT_COMMAND)$(foreach repo,$(REPOS), \
 	echo $(repo)... && cd ../$(repo) && git pull \
 	;)
 
 .PHONY:
 pull-upstream:
-	@$(foreach repo,$(REPOS), \
+	$(NO_PRINT_COMMAND)$(foreach repo,$(REPOS), \
 	echo $(repo)... && cd ../$(repo) && git pull upstream `git rev-parse --abbrev-ref HEAD` \
 	;)
 
 .PHONY:
 checkout:
-	@$(foreach repo,$(REPOS), \
+	$(NO_PRINT_COMMAND)$(foreach repo,$(REPOS), \
 	echo $(repo)... && cd ../$(repo) && git checkout $(ARGS) \
 	;)
 

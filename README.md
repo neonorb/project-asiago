@@ -14,16 +14,28 @@ The goal in starting this project is to scrap everything, and start from scratch
 
 Of course, nobody would flat out scrap their digital life to move to Project Asiago, so there are "backwards compatible" packages (Mish Linux, Mish Android) to allow the transition to be easier. This is similar to how the JVM is suppose to be platform independent, but the goal is to create a runtime that works flawlessly across any system. It's inevitable that such a system would be more restricted than your average C++ or Python program, but it's goal is not to be "another" language.
 
-## Projects
-Here are all the sub-projects in Project Asiago:
+## Goals
+ - security
+ - stability
+ - integration
+
+To accomplish these goals, we will:
+ - managed code to prevent all the obscure native code exploits
+ - contracts and permissions in order to write crash-proof code and guarentee security
+ - scrap the file system model in favour of direct object serialization
+
+## Components
+Here are all the components in Project Asiago:
  - [Aura](https://github.com/neonorb/aura) - operating system
- - [Feta](https://github.com/neonorb/feta) - standard library
+ - [Feta](https://github.com/neonorb/feta) - minimal standard library (this is not intended to be standards compliant at all)
  - [Danbo](https://github.com/neonorb/danbo) - parser generator
  - [Mish](https://github.com/neonorb/mish) - language library
- - [Mish Linux](https://github.com/neonorb/mish-linux) - Linux base for Mish
- - [Motal](https://github.com/neonorb/motal) - Linux distribution for Mish
  - [Make Base](https://github.com/neonorb/make-base) - shared management/build scripts
- - [Project Asiago](https://github.com/neonorb/project-asiago) - scripts used to build and maintain all these projects
+
+There are also several "backwards compatible" packages. These are to aid in the adoption of Asiago-related systems without switching completly over.
+ - [Motal](https://github.com/neonorb/motal) - Linux distribution for Mish
+ - [Mish Linux](https://github.com/neonorb/mish-linux) - Linux base for Mish
+ - [Mish Android](https://github.com/neonorb/mish-android) - Android base for Mish
 
 ## Getting
 See INSTALL.md for installation instructions.

@@ -20,6 +20,9 @@ cd project-asiago/
 make init
 ```
 
+## Building
+This project supports parallel building, so you may do this: `make -j all`
+
 ## Aura
 ```
 make aura
