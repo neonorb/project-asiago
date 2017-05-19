@@ -20,8 +20,8 @@ Of course, nobody would flat out scrap their digital life to move to Project Asi
  - integration
 
 To accomplish these goals, we will:
- - managed code to prevent all the obscure native code exploits
- - contracts and permissions in order to write crash-proof code and guarentee security
+ - use managed code to prevent all the obscure native code exploits
+ - use contracts and permissions in order to write crash-proof code and guarentee security
  - scrap the file system model in favour of direct object serialization
 
 ## Components
