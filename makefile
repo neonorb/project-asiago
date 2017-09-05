@@ -51,6 +51,10 @@ debug-aura: clean
 	$(NO_PRINT_COMMAND)cd ../aura && ./debug.sh
 
 .PHONY:
+run-aura-cli: aura
+	@cd ../aura && make -s run-cli
+
+.PHONY:
 run-linux: mish-linux
 	$(NO_PRINT_COMMAND)cd ../mish-linux && build/x86_64/mish-linux.bin
 
